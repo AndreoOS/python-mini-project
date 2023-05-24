@@ -13,8 +13,8 @@ permissions:
 
 jobs:
   code-checks:
+  
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -29,20 +29,21 @@ jobs:
         pip install pylint ruff black bandit pytype
     - name: Run Pylint
       run: pylint
-      continue-on-error: true
+      if: ${{ always() }}
+      
     - name: Run Ruff
       run: ruff .
-      continue-on-error: true
+      if: ${{ always() }}
 
     - name: Run Black
       run: black .
-      continue-on-error: true
+      if: ${{ always() }}
 
     - name: Run Bandit
       run: bandit -r .
-      continue-on-error: true
+      if: ${{ always() }}
 
     - name: Run Pytype
       run: pytype .
-      continue-on-error: true
+      if: ${{ always() }}
 
